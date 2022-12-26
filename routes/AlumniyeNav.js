@@ -21,28 +21,33 @@ import Profile from "../page/Profile";
 import Alumni from "../page/Alumni";
 
 const StackNav = createNativeStackNavigator();
-const Tab = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const HomePage = () => {
+    return (
+        <Tab.Navigator>
+            <Tab.Screen name="Beranda" component={Home} options={{ headerShown: true }} />
+            <Tab.Screen name="TracerBottom" component={Tracer} options={{ headerShown: false }} />
+            <StackNav.Screen name="Search" component={Search} options={{ headerShown: false }} />
+        </Tab.Navigator>
+    )
+}
 
 const AlumniyeNav = () => {
     return (
+        // Di setiap project, navigation container hanya boleh ada 1
         <NavigationContainer>
-            <StackNav.Navigator
-                initialRouteName='Home'
-                screenOptions={({ navigation }) => ({
-                    headerStyle: {
-                        backgroundColor: '#207423',
-                    },
-                    headerShown: () => {
-                        if (navigation.name === '') {
-
-                        }
-                    }
-                })
-
-                }
-
-            />
+            
+            {/* port http//0.0.0.0:8000/tracer */}
+            {/* port http//0.0.0.0:8000/Home/Beranda */}
+            {/* port http//0.0.0.0:8000/Home/TracerBottom */}
+            <StackNav.Navigator>
+                <StackNav.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
+                <StackNav.Screen name="Tracer" component={Tracer} options={{ headerShown: false }} />
+            </StackNav.Navigator>
 
         </NavigationContainer>
     )
 }
+
+export default AlumniyeNav;
